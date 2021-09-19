@@ -84,9 +84,8 @@ if __name__ == '__main__':
     if flag == 'info':
         print(hives)
         exit(0)
-    elif flag == 'set':           # set <NAME> <VALUE>
+    elif flag == 'set':
         check(len(args) == 2, 'Must have two arguments: NAME, VALUE')
-
         if args[0] == 'course':
             hives.course = args[1]
         elif args[0] == 'code':
@@ -96,7 +95,6 @@ if __name__ == '__main__':
         else:
             print(f"'{args[0]}' is not a valid setting.")
             exit(0)
-
         print(f"Updated '{args[0]}' to '{args[1]}'.")
         hives.save()
         exit(0)
@@ -104,18 +102,16 @@ if __name__ == '__main__':
     check(hives.course, "'course' has not been set.")
     check(hives.code, "'code' has not been set.")
 
-    if flag == 'ssh':           # ssh
+    if flag == 'ssh':
         commands = f'ssh {hives.course}-{hives.code}@{next(hives)}.cs.berkeley.edu'
         wait = True
-    elif flag == 'push':        # push <DIR> <FOLDER>
+    elif flag == 'push':
         check(len(args) == 2, 'Must have two arguments: DIR, FOLDER.')
         commands = f'scp -r {args[0]}/{args[1]} ' \
                    f'{hives.course}-{hives.code}@{next(hives)}.cs.berkeley.edu:~/{args[0]}/'
     else:
         exit(0)
-
     hives.save()
-
 
     def execute():
         os.system(commands)
