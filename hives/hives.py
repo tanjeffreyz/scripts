@@ -3,8 +3,8 @@ A script for quickly interacting with UC Berkeley's hive machines.
 
 
 Commands:
-    info
-        Displays your current course, code, and password.
+    status
+        Displays your course, code, and password.
 
     set <NAME> <VALUE>
         NAME can be 'course', 'code', or 'password'. Stores VALUE in variable NAME.
@@ -30,8 +30,8 @@ class Hives:
     HIVE_IDS = [
         'hive4',  'hive5',  'hive6',  'hive7',  'hive8',
         'hive9',  'hive10', 'hive11', 'hive12', 'hive13',
-        'hive14', 'hive14', 'hive14', 'hive14', 'hive14',
-        'hive14', 'hive20', 'hive21', 'hive22', 'hive23',
+        'hive14', 'hive15', 'hive16', 'hive17', 'hive18',
+        'hive19', 'hive20', 'hive21', 'hive22', 'hive23',
         'hive24', 'hive25', 'hive26', 'hive27', 'hive28',
         'hive29', 'hive30'
     ]
@@ -43,8 +43,9 @@ class Hives:
         self.password = ''
 
     def __next__(self):
+        result = Hives.HIVE_IDS[self.index]
         self.index = (self.index + 1) % len(Hives.HIVE_IDS)
-        return Hives.HIVE_IDS[self.index]
+        return result
 
     def __str__(self):
         return f"course='{self.course}'\n" \
@@ -78,10 +79,9 @@ if __name__ == '__main__':
     args = sys.argv[2:]
 
     commands = ''
-    wait = False
     hives = Hives.load()
 
-    if flag == 'info':
+    if flag == 'status':
         print(hives)
         exit(0)
     elif flag == 'set':
@@ -104,26 +104,27 @@ if __name__ == '__main__':
 
     if flag == 'ssh':
         commands = f'ssh {hives.course}-{hives.code}@{next(hives)}.cs.berkeley.edu'
-        wait = True
     elif flag == 'push':
         check(len(args) == 2, 'Must have two arguments: DIR, FOLDER.')
         commands = f'scp -r {args[0]}/{args[1]} ' \
                    f'{hives.course}-{hives.code}@{next(hives)}.cs.berkeley.edu:~/{args[0]}/'
     else:
+        print(f"'{flag}' is an unrecognized command.")
         exit(0)
     hives.save()
+
+    check(hives.password, "Password has not been set.")
 
     def execute():
         os.system(commands)
         exit(0)
 
-    check(hives.password, "Password has not been set.")
-
     thread = Thread(target=execute)
+    thread.daemon = True
     thread.start()
 
     keyboard.write(hives.password)
     keyboard.press('Enter')
 
-    while wait and thread.is_alive():
+    while thread.is_alive():
         time.sleep(0.1)
