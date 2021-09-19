@@ -99,8 +99,8 @@ if __name__ == '__main__':
         hives.save()
         exit(0)
 
-    check(hives.course, "'course' has not been set.")
-    check(hives.code, "'code' has not been set.")
+    check(hives.course, "Course has not been set.")
+    check(hives.code, "Code has not been set.")
 
     if flag == 'ssh':
         commands = f'ssh {hives.course}-{hives.code}@{next(hives)}.cs.berkeley.edu'
@@ -117,7 +117,7 @@ if __name__ == '__main__':
         os.system(commands)
         exit(0)
 
-    check(hives.password, "'password' has not been set.")
+    check(hives.password, "Password has not been set.")
 
     thread = Thread(target=execute)
     thread.start()
