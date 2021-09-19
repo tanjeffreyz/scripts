@@ -1,5 +1,5 @@
 """
-Script for quickly interacting with UC Berkeley's hive machines.
+A script for quickly interacting with UC Berkeley's hive machines.
 
 
 Commands:
