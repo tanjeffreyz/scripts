@@ -1,5 +1,6 @@
 """
 A script for quickly interacting with UC Berkeley's hive machines.
+(Every hive in Hives.HIVE_IDS must be authenticated beforehand for this script to work!)
 
 
 Commands:
@@ -52,9 +53,6 @@ class Hives:
                f"code='{self.code}'\n" \
                f"password='{self.password}'"
 
-    def curr(self):
-        return Hives.HIVE_IDS[self.index]
-
     def save(self):
         target = open('.hives', 'wb')
         pickle.dump(self, target)
@@ -75,7 +73,7 @@ def check(condition, message=''):
 
 if __name__ == '__main__':
     check(len(sys.argv) > 1, "Please input a command.")
-    flag = sys.argv[1]
+    flag = sys.argv[1].lower()
     args = sys.argv[2:]
 
     commands = ''
@@ -105,12 +103,13 @@ if __name__ == '__main__':
     if flag == 'ssh':
         commands = f'ssh {hives.course}-{hives.code}@{next(hives)}.cs.berkeley.edu'
     elif flag == 'push':
-        check(len(args) == 2, 'Must have two arguments: DIR, FOLDER.')
+        check(len(args) == 2, 'Must have exactly two arguments: DIR, FOLDER.')
         commands = f'scp -r {args[0]}/{args[1]} ' \
                    f'{hives.course}-{hives.code}@{next(hives)}.cs.berkeley.edu:~/{args[0]}/'
     else:
         print(f"'{flag}' is an unrecognized command.")
         exit(0)
+
     hives.save()
 
     check(hives.password, "Password has not been set.")
