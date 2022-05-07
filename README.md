@@ -18,7 +18,7 @@
   <br>
   
   <h3>
-    <a href="https://github.com/tanjeffreyz02/Toolbox/tree/hives">Hives</a>
+    <a href="https://github.com/tanjeffreyz02/Toolbox/tree/hives">CalHive</a>
   </h3>
   <p>Quickly interacts with UC Berkeley's instructional hive machines with commands such as "ssh" and "scp". Stores course and login information for repeated use. Cycles through a list of hive machines to avoid getting stuck.</p>
   
