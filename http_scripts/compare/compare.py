@@ -1,4 +1,5 @@
 import json
+import os
 
 
 def compare(before_obj, after_obj, string, new, removed):
@@ -17,11 +18,17 @@ def compare(before_obj, after_obj, string, new, removed):
 
 
 if __name__ == '__main__':
-    with open('before.json', 'w+') as file:
+    if not os.path.exists('before.json'):
+        with open('before.json', 'w'):
+            pass
+    with open('before.json', 'r') as file:
         string = file.read()
         before_obj = json.loads(string) if len(string) > 0 else {}
 
-    with open('after.json', 'w+') as file:
+    if not os.path.exists('after.json'):
+        with open('after.json', 'w'):
+            pass
+    with open('after.json', 'r') as file:
         string = file.read()
         after_obj = json.loads(string) if len(string) > 0 else {}
 

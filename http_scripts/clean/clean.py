@@ -1,4 +1,5 @@
 import json
+import os
 
 IGNORED = {'logo', 'desc'}
 MAX_LIST_LEN = 3
@@ -22,7 +23,11 @@ def clean(obj):
 
 
 if __name__ == '__main__':
-    with open('target.json', 'w+') as file:
+    if not os.path.exists('target.json'):
+        with open('target.json', 'w'):
+            pass
+
+    with open('target.json', 'r') as file:
         string = file.read()
         contents = json.loads(string) if len(string) > 0 else {}
 
