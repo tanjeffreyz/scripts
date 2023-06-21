@@ -49,7 +49,7 @@ def convert(obj, set_example):
 def transfer(obj, prev):
     if type(obj) is list and type(prev) is list:
         # Map properties of prev by name
-        prev_map = {x['name']: x for x in prev if 'name' in x}
+        prev_map = {x['name']: x for x in prev if (type(x) is dict and 'name' in x)}
 
         # Only recurse on properties in obj that are also preset in prev
         for i in range(len(obj)):
@@ -68,8 +68,8 @@ def transfer(obj, prev):
 
 
 if __name__ == '__main__':
-    if not os.path.exists('prev.py'):
-        with open('prev.py', 'w') as file:
+    with open('prev.py', 'w+') as file:
+        if len(file.read()) == 0:
             file.write('default = {}\n')
 
     import prev
