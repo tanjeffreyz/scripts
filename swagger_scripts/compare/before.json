@@ -1,0 +1,123 @@
+{
+  "access_control_policy": {
+    "bypassuac": false,
+    "elevateed_privileges": false,
+    "is_migration_permissions": {},
+    "local_info": [
+      "string"
+    ],
+    "unstable_elevate_privileges": false
+  },
+  "attack_mode": 1,
+  "attack_policy": {
+    "exp_priority": 0,
+    "is_open_exp": true,
+    "is_open_exp_evade": true
+  },
+  "attack_range": [
+    "string"
+  ],
+  "blacklist": [],
+  "blind_test": {
+    "client": {
+      "dns_address": "string",
+      "http_address": "string",
+      "tcp_address": "string"
+    },
+    "local_hosts": [
+      "string"
+    ],
+    "server": {
+      "data_durationn": 0,
+      "dns_domain": "string",
+      "http_port": 0,
+      "listen_ip": "string",
+      "tcp_end_port": 0,
+      "tcp_start_port": 0
+    }
+  },
+  "burst_policy": {
+    "assist_recognition": 0,
+    "is_open_bf": 0,
+    "services": [
+      "string"
+    ]
+  },
+  "cycle_plan": 0,
+  "detect_policy": {
+    "flow_control": 0,
+    "is_detect_ul": 0,
+    "is_filter_wd": true,
+    "is_open_ad": 0,
+    "max_connections": 0,
+    "vul_priority": 0
+  },
+  "grab_mode": 0,
+  "is_config_email": false,
+  "name": "test task",
+  "post_penetration_conf": {
+    "exclude": [],
+    "investigation_depth": 3,
+    "lateral_attack": true,
+    "lateral_range": [
+      "string"
+    ],
+    "max_penetrated_host": 10
+  },
+  "receiver_email": [],
+  "schedule": {
+    "end_date": "",
+    "pause_check": 0,
+    "pause_end": "",
+    "pause_start": "",
+    "pending_time": "",
+    "rate": [],
+    "time": "",
+    "type": "no"
+  },
+  "service_detect_policy": {
+    "auxiliary_protocols": [
+      "string"
+    ],
+    "host_timeout": 0,
+    "info_extract": [
+      "string"
+    ],
+    "is_overwrite": 0,
+    "scan_method": "TCP_SYN_UDP",
+    "scan_port_method": "usual_tcp_port",
+    "scan_ports": "T:1,2-4,....",
+    "scan_retry": 0,
+    "service_analysis_level": 0,
+    "use_host_discovery": true
+  },
+  "session_policy": {
+    "clean_date": "",
+    "clean_mode": 0,
+    "rc_addr": "string",
+    "rc_eport": 0,
+    "rc_mode": 0,
+    "rc_sport": 0
+  },
+  "summary": "test task summary",
+  "targets": [
+    "192.168.1.1",
+    "192.168.1.2"
+  ],
+  "template_id": 1,
+  "vul_policy": {
+    "components": [
+      20001,
+      20003
+    ],
+    "miter": [
+      "string"
+    ],
+    "ostype": [
+      0
+    ],
+    "severity": [
+      0
+    ]
+  }
+}

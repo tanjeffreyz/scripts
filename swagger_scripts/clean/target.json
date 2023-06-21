@@ -1,0 +1,97 @@
+{
+  "access_control_policy": {
+    "bypassuac": false,
+    "elevated_privileges": false,
+    "is_migration_permissions": false,
+    "local_info": [],
+    "unstable_elevated_privileges": false
+  },
+  "attack_mode": 1,
+  "attack_policy": {
+    "exp_priority": 0,
+    "is_open_exp": false,
+    "is_open_exp_evade": false
+  },
+  "attack_range": [],
+  "blacklist": [],
+  "blind_test": {},
+  "burst_policy": {
+    "assist_recognition": 0,
+    "is_open_bf": 0,
+    "services": []
+  },
+  "cycle_plan": 0,
+  "detect_policy": {
+    "is_detect_ul": 1,
+    "is_filter_wd": true,
+    "is_open_ad": false,
+    "vul_priority": 1
+  },
+  "file_name": "",
+  "is_config_email": false,
+  "is_overwrite": true,
+  "name": "a",
+  "nodes": [],
+  "post_penetration_conf": {
+    "exclude": [],
+    "investigation_depth": 2,
+    "lateral_attack": false,
+    "lateral_range": [],
+    "max_penetrated_host": 10
+  },
+  "receiver_email": [],
+  "schedule": {
+    "end_date": "",
+    "pause_check": 0,
+    "pause_end": "",
+    "pause_start": "",
+    "pending_time": "",
+    "rate": [],
+    "time": "",
+    "type": "no"
+  },
+  "service_detect_policy": {
+    "auxiliary_protocols": [
+      "dns",
+      "ftp",
+      "imap",
+      "(1 more item not shown)"
+    ],
+    "host_timeout": 3600,
+    "info_extract": [],
+    "scan_method": "TCP_SYN_UDP",
+    "scan_port_method": "usual_tcp_port",
+    "scan_ports": "T:1,3-4,6-7,9,13,17,19-26,30,32-...",
+    "scan_retry": 3,
+    "service_analysis_level": 7,
+    "use_host_discovery": true
+  },
+  "session_policy": {
+    "clean_date": "",
+    "rc_addr": "127.0.0.1",
+    "rc_eport": 41000,
+    "rc_mode": 0,
+    "rc_sport": 40000
+  },
+  "stealth_mode": 3,
+  "summary": "",
+  "targets": [
+    "192.168.1.1"
+  ],
+  "task_id": "",
+  "template_id": 6,
+  "vul_policy": {
+    "components": [],
+    "ostype": [
+      0,
+      1,
+      2
+    ],
+    "severity": [
+      1,
+      2,
+      3,
+      "(1 more item not shown)"
+    ]
+  }
+}
