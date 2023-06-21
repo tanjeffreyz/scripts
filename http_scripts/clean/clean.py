@@ -22,8 +22,9 @@ def clean(obj):
 
 
 if __name__ == '__main__':
-    with open('target.json', 'r') as file:
-        contents = json.loads(file.read())
+    with open('target.json', 'w+') as file:
+        string = file.read()
+        contents = json.loads(string) if len(string) > 0 else {}
 
     contents = clean(contents)
 
