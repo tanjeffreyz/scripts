@@ -51,8 +51,8 @@ if __name__ == '__main__':
     #   Name    #
     #############
     if not os.path.exists('name.txt'):
-        with open('name.txt', 'w'):
-            pass
+        with open('name.txt', 'w') as file:
+            file.write('default')
     with open('name.txt', 'r') as file:
         name = file.read()
 
@@ -60,8 +60,8 @@ if __name__ == '__main__':
     #    URL    #
     #############
     if not os.path.exists('url.txt'):
-        with open('url.txt', 'w'):
-            pass
+        with open('url.txt', 'w') as file:
+            file.write('https://www.google.com?param=default')
     with open('url.txt', 'r') as file:
         url = file.read()
 
@@ -69,8 +69,8 @@ if __name__ == '__main__':
     #   Request     #
     #################
     if not os.path.exists('request.json'):
-        with open('request.json', 'w'):
-            pass
+        with open('request.json', 'w') as file:
+            file.write('{}')
     with open('request.json', 'r') as file:
         request = json.load(file)
         assert type(request) is dict, 'Request JSON must be a dictionary'
@@ -79,8 +79,8 @@ if __name__ == '__main__':
     #   Response    #
     #################
     if not os.path.exists('response.json'):
-        with open('response.json', 'w'):
-            pass
+        with open('response.json', 'w') as file:
+            file.write('{}')
     with open('response.json', 'r') as file:
         response = json.load(file)
         assert type(response) is dict, 'Response JSON must be a dictionary'
