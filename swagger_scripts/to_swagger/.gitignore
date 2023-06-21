@@ -1,0 +1,4 @@
+*.json
+*.JSON
+out.py
+*.txt
