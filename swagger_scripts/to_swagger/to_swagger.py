@@ -1,4 +1,5 @@
 import json
+from urllib.parse import urlparse, parse_qs
 
 MAX_LIST_LEN = 3
 MAX_STR_LEN = 32
@@ -44,18 +45,53 @@ def convert(obj, set_example):
     return converted
 
 
-with open('in.json', 'r') as file:
-    obj = json.load(file)
-    assert type(obj) is dict, 'JSON object must be a dictionary'
+if __name__ == '__main__':
+    #############
+    #   Name    #
+    #############
+    with open('name.txt', 'r') as file:
+        name = file.read()
 
-cleaned = clean(obj)
-converted = convert(cleaned, True)
-pretty = (
-    json.dumps(converted, indent=4)
-    .replace('true', 'True')
-    .replace('false', 'False')
-    .replace('null', 'None')
-)
+    #############
+    #    URL    #
+    #############
+    with open('url.txt', 'r') as file:
+        url = file.read()
 
-with open('out.py', 'w') as file:
-    file.write('schema = ' + pretty + '\n')
+    #################
+    #   Request     #
+    #################
+    with open('request.json', 'r') as file:
+        request = json.load(file)
+        assert type(request) is dict, 'Request JSON must be a dictionary'
+
+    #################
+    #   Response    #
+    #################
+    with open('response.json', 'r') as file:
+        response = json.load(file)
+        assert type(response) is dict, 'Response JSON must be a dictionary'
+
+    cleaned = clean(response)
+    schema = convert(cleaned, True)
+    result = {
+        'tags': [],
+        'summary': '',
+        'description': '',
+        'consumes': [''],
+        'responses': {
+            '0': {
+                'description': 'Successful operation',
+                'schema': schema
+            }
+        }
+    }
+    string = (
+        json.dumps(result, indent=4)
+        .replace('true', 'True')
+        .replace('false', 'False')
+        .replace('null', 'None')
+    )
+
+    with open('out.py', 'w') as file:
+        file.write(f'{name}_swagger = ' + string + '\n')
