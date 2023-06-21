@@ -65,24 +65,73 @@ if __name__ == '__main__':
     with open('url.txt', 'r') as file:
         url = file.read()
 
+    parameters = [
+        {
+            'name': 'Authorization',
+            'in': 'header',
+            'description': 'Authorization (Only:Your-Ridgebot-User-Token)',
+            'required': True,
+            'type': 'string',
+            'default': 'Your-Ridgebot-User-Token'
+        }
+    ]
+    for k, v in parse_qs(urlparse(url).query).items():
+        # Convert v to appropriate type
+        v = v[0].strip()
+        if v.lower() == 'true':
+            v = True
+        elif v.lower() == 'false':
+            v = False
+        else:
+            try:
+                v = int(v)
+            except ValueError:
+                try:
+                    v = float(v)
+                except ValueError:
+                    pass
+
+        t = type(v)
+        parameters.append({
+            'name': k,
+            'in': 'query',
+            'required': True,
+            'type': TYPES[t],
+            'default': t(),
+            'example': v
+        })
+
     #################
-    #   Request     #
+    #   Payload     #
     #################
-    if not os.path.exists('request.json'):
-        with open('request.json', 'w') as file:
-            file.write('{}')
-    with open('request.json', 'r') as file:
-        request = json.load(file)
-        assert type(request) is dict, 'Request JSON must be a dictionary'
+    if not os.path.exists('payload.json'):
+        with open('payload.json', 'w') as file:
+            pass
+    with open('payload.json', 'r') as file:
+        contents = file.read()
+        payload = json.loads(contents) if len(contents) > 0 else {}
+        assert type(payload) is dict, 'Payload JSON must be a dictionary'
+
+    consumes = 'text/plain'
+    if len(payload) > 0:
+        cleaned = clean(payload)
+        schema = convert(cleaned, True)
+        parameters.append({
+            'name': 'root',
+            'in': 'body',
+            'schema': schema
+        })
+        consumes = 'application/json'
 
     #################
     #   Response    #
     #################
     if not os.path.exists('response.json'):
         with open('response.json', 'w') as file:
-            file.write('{}')
+            pass
     with open('response.json', 'r') as file:
-        response = json.load(file)
+        contents = file.read()
+        response = json.loads(contents) if len(contents) > 0 else {}
         assert type(response) is dict, 'Response JSON must be a dictionary'
 
     cleaned = clean(response)
@@ -91,9 +140,10 @@ if __name__ == '__main__':
         'tags': [],
         'summary': '',
         'description': '',
-        'consumes': [''],
+        'consumes': [consumes],
+        'parameters': parameters,
         'responses': {
-            '0': {
+            '200': {
                 'description': 'Successful operation',
                 'schema': schema
             }
@@ -107,4 +157,4 @@ if __name__ == '__main__':
     )
 
     with open('out.py', 'w') as file:
-        file.write(f'{name}_swagger = ' + string + '\n')
+        file.write(f'{name.strip()}_swagger = ' + string.strip() + '\n')
